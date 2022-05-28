@@ -1,8 +1,8 @@
 import { Country, Currency, getCountry, getCurrency } from "./enum";
-import { search } from "./func/search";
+import { fetchMarketItems } from "./func/fetchMarketItems";
 
 const DEFAULT_OPTIONS = {
-    appid: 730,
+    appid: 252490,
     currency: "IDR" as Currency,
     country: "Indonesia" as Country,
     language: "English",
@@ -31,7 +31,7 @@ export class Parser {
         };
     }
 
-    async searchItem(filter: object = {}) {
-        return await search(this.config, filter);
+    async scrap(filter: object = {}) {
+        return await fetchMarketItems(this.config, filter);
     }
 }
