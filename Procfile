@@ -1,1 +1,1 @@
-worker: npx ts-node ./src/index.ts --experimental-fetch
+worker: npm run start
