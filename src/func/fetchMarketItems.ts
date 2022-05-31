@@ -40,9 +40,11 @@ export async function fetchMarketItems(config: ParserConfig, filter: object) {
 
         const itemRequestUrl = urlcat(baseUrl, { ...param, ...page });
         const response = (await requestURL(itemRequestUrl, "json")) as SearchResponse;
+        const ITEM_RETRIEVAL_DELAY = 20000;
+
+        if (response === null) continue;
         const itemEntries = response.results.entries();
 
-        const ITEM_RETRIEVAL_DELAY = 20000;
         for await (const [index, item] of itemEntries) {
             if (storedItemsName.includes(item.name)) {
                 console.log(`[MarketFetch] Item '${item.name}' is already stored! (${i + index + 1}/${itemCount})`);
