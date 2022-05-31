@@ -1,10 +1,10 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
+        "module": "CommonJS",
         "target": "ES2016",
         "noImplicitAny": false,
-        "outDir": "built",
-        "rootDir": ".",
+        "outDir": "dist",
+        "rootDir": "./src",
         "sourceMap": false,
         "esModuleInterop": true
     },
