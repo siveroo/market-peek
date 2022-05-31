@@ -9,7 +9,7 @@ export async function getNameId(appId: number, itemName: string) {
     const html = await requestURL(url, "text");
 
     const regex = /Market_LoadOrderSpread\((.*)\)/gm;
-    const match = regex.exec(html).slice(0);
+    const match = regex.exec(html)?.slice(0);
 
-    return parseInt(match[1] ?? "-1");
+    return match?.[1] ? parseInt(match[1]) : null;
 }

@@ -1,8 +1,10 @@
 import { Country, Currency, getCountry, getCurrency } from "./enum";
 import { fetchMarketItems } from "./func/fetchMarketItems";
 
+// RUST = 252490
+// CSGO = 730
 const DEFAULT_OPTIONS = {
-    appid: 252490,
+    appid: 730,
     currency: "IDR" as Currency,
     country: "Indonesia" as Country,
     language: "English",
