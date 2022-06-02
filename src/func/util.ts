@@ -1,3 +1,5 @@
+import { Logger } from "../logger";
+
 export async function requestURL(url: string, type: "text" | "json", retryCount = 3) {
     const MAX_RETRIES = Math.max(0, retryCount) + 1;
     const RETRY_DURATION = 90000;
@@ -8,7 +10,7 @@ export async function requestURL(url: string, type: "text" | "json", retryCount 
         try {
             response = await fetch(url);
             if (response.status === 429) {
-                console.warn(
+                Logger.warn(
                     `[Request RateLimit] Too much request when accessing '${type}' from '${url}' (${i + 1}/${MAX_RETRIES - 1})`
                 );
             } else {
@@ -16,9 +18,9 @@ export async function requestURL(url: string, type: "text" | "json", retryCount 
             }
         } catch (err) {
             if (err instanceof TypeError) {
-                console.error(`[${err.name}] ${err.message} (${i + 1}/${MAX_RETRIES - 1})`);
+                Logger.error(`[${err.name}] ${err.message} (${i + 1}/${MAX_RETRIES - 1})`);
             } else {
-                console.error(err);
+                Logger.error(err);
             }
         }
 

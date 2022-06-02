@@ -6,7 +6,10 @@ import { retrieveItemsByApp, upsertApp, upsertItem } from "../database";
 import { createMarketApp } from "../entity/marketApp";
 import { createMarketItem } from "../entity/marketItem";
 
+import { Logger } from "../logger";
 export async function fetchMarketItems(config: ParserConfig, filter: object) {
+    const logger = new Logger({ titleStyle: "magenta", title: "FetchMarketItems" });
+
     const baseUrl = `https://steamcommunity.com/market/search/render/`;
     const param = {
         l: config.language,
@@ -44,24 +47,22 @@ export async function fetchMarketItems(config: ParserConfig, filter: object) {
 
         for await (const [index, item] of itemEntries) {
             if (storedItemsName.includes(item.name)) {
-                console.log(`[MarketFetch] Item '${item.name}' is already stored! (${i + index + 1}/${itemCount})`);
+                logger.print(`Item '${item.name}' is already stored! (${i + index + 1}/${itemCount})`);
                 continue;
             }
 
-            console.log(`[MarketFetch] Fetching item '${item.name}' from the Steam Market. (${i + index + 1}/${itemCount})`);
+            logger.print(`Fetching item '${item.name}' from the Steam Market. (${i + index + 1}/${itemCount})`);
 
             const marketItem = await createMarketItem(item);
             if (marketItem === null || marketItem.item_nameid === null) {
-                console.warn(
-                    `[MarketFetch] Failed to fetch Item '${item.name}' from Steam Market! (${i + index + 1}/${itemCount})`
-                );
+                logger.print(`Failed to fetch Item '${item.name}' from Steam Market! (${i + index + 1}/${itemCount})`);
                 await delay(ITEM_RETRIEVAL_DELAY);
                 continue;
             }
 
             const upsertedItem = await upsertItem(marketItem);
-            if (upsertItem === null) {
-                console.warn(`[MarketFetch] Item '${item.name}' failed to save in database! (${i + index + 1}/${itemCount})`);
+            if (upsertedItem === null) {
+                logger.print(`Item '${item.name}' failed to save in database! (${i + index + 1}/${itemCount})`);
             }
 
             await delay(ITEM_RETRIEVAL_DELAY);
