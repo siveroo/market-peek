@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { MarketApp } from "./entity/marketApp";
 import { MarketItem } from "./entity/marketItem";
 import { delay } from "./func/util";
+import { Logger } from "./logger";
 
 const prisma = new PrismaClient();
 
@@ -10,7 +11,7 @@ async function dbWrapper<T>(fn: Promise<T>, retries = 3): Promise<T> | null {
         try {
             return await fn;
         } catch (err) {
-            console.error(err);
+            Logger.error(err);
             await delay(30000);
             continue;
         }

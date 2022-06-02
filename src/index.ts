@@ -7,7 +7,6 @@ const parser = new Parser();
 
 (async function () {
     const items = await parser.scrap();
-    console.log(items);
 
     app.listen(3000);
 })();
