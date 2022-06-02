@@ -3,8 +3,9 @@ import { fetchMarketItems } from "./func/fetchMarketItems";
 
 // RUST = 252490
 // CSGO = 730
+// TF2 = 440
 const DEFAULT_OPTIONS = {
-    appid: 730,
+    appid: 440,
     currency: "IDR" as Currency,
     country: "Indonesia" as Country,
     language: "English",

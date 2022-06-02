@@ -5,7 +5,7 @@ import { SearchResponse } from "../interface/search";
 import { retrieveItemsByApp, upsertApp, upsertItem } from "../database";
 import { createMarketApp } from "../entity/marketApp";
 import { createMarketItem } from "../entity/marketItem";
-// https://steamcommunity.com/market/search?category_730_ItemSet%5B0%5D=any&category_730_ProPlayer%5B0%5D=any&category_730_StickerCapsule%5B0%5D=any&category_730_TournamentTeam%5B0%5D=any&category_730_Weapon%5B0%5D=any&category_730_Type%5B0%5D=tag_CSGO_Type_WeaponCase&category_730_Type%5B1%5D=tag_CSGO_Tool_Sticker&category_730_Type%5B2%5D=tag_CSGO_Type_Spray&appid=730
+
 export async function fetchMarketItems(config: ParserConfig, filter: object) {
     const baseUrl = `https://steamcommunity.com/market/search/render/`;
     const param = {
@@ -13,9 +13,6 @@ export async function fetchMarketItems(config: ParserConfig, filter: object) {
         currency: config.currency,
         appid: config.appid,
         norender: 1,
-        "category_730_Type[0]": "tag_CSGO_Type_WeaponCase",
-        "category_730_Type[1]": "tag_CSGO_Tool_Sticker",
-        "category_730_Type[2]": "tag_CSGO_Type_Spray",
         ...filter,
     };
     const initialRequestUrl = urlcat(baseUrl, param);
