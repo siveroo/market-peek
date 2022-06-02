@@ -30,7 +30,7 @@ export async function fetchMarketItems(config: ParserConfig, filter: object) {
     if (upsertedApp === null) return;
 
     const storedItemsName = (await retrieveItemsByApp(app)).map((item) => item.name);
-    const batchSize = 50;
+    const batchSize = 200;
 
     for (let i = 0; i < itemCount; i += batchSize) {
         const page = {
