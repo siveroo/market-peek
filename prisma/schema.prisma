@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
@@ -15,11 +15,11 @@ model App {
 }
 
 model Item {
-  id            Int      @id
   name          String
   hash_name     String
   icon_url      String
   app_id        Int
   lastUpdatedAt DateTime @default(now())
+  id            Int      @id
   app           App      @relation(fields: [app_id], references: [id])
 }
